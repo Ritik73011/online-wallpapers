@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import Wallpapers from "./Wallpapers";
 
 const Home = () => {
   const [state, setState] = useState([
@@ -39,9 +40,7 @@ const Home = () => {
       {/*Category section end*/}
 
       {/*Wallpaper Section Start*/}
-      <View style={{flex:1,backgroundColor:"pink"}}>
-
-      </View>
+          <Wallpapers/>
       {/*Wallpaper Section END*/}
     </View>
   );
@@ -62,6 +61,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     borderRadius: 16,
     textTransform: "capitalize",
+    elevation:3
   },
 });
 
