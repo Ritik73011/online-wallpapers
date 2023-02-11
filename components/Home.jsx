@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import wallContext from "../context/wallpaper.context";
 import Wallpapers from "./Wallpapers";
+import { singleApi, client_id } from "../private";
 
 const Home = () => {
   const [state, setState] = useState([
@@ -18,7 +20,13 @@ const Home = () => {
     { cat: "space" },
     { cat: "cars" },
   ]);
-  const handlePress = (text) => {};
+  const { setWallpapers } = useContext(wallContext);
+
+  const handlePress = async (text) => {
+    const responce = await fetch(singleApi + text + client_id);
+    const walls = await responce.json();
+    setWallpapers(walls.results);
+  };
   return (
     <View style={{ flex: 1 }}>
       {/*Category section start*/}
@@ -40,7 +48,7 @@ const Home = () => {
       {/*Category section end*/}
 
       {/*Wallpaper Section Start*/}
-          <Wallpapers/>
+      <Wallpapers />
       {/*Wallpaper Section END*/}
     </View>
   );
@@ -61,7 +69,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     borderRadius: 16,
     textTransform: "capitalize",
-    elevation:3
+    elevation: 3,
   },
 });
 
