@@ -32,14 +32,13 @@ const Wallpapers = () => {
               return (
                 <View
                   style={{
-                    maxHeight: 250,
-                    maxWidth: 176,
-                    width: "100%",
-                    height: "100%",
                     margin: 10,
                     borderRadius: 8,
                     backgroundColor: "white",
                     elevation: 2,
+                    width:"44%",
+                    height:240,
+                    justifyContent:"center"
                   }}
                   key={ele.id}
                 >
