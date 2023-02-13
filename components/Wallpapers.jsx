@@ -2,10 +2,12 @@ import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import {
   View,
-  Text,
-  ScrollView,
   Image,
   TouchableOpacity,
+  SafeAreaView,
+  FlatList,
+  Text,
+  Button,
 } from "react-native";
 import wallContext from "../context/wallpaper.context";
 const Wallpapers = () => {
@@ -16,52 +18,43 @@ const Wallpapers = () => {
     navigation.navigate("image", { url: url });
   };
 
+  const WallView = ({ wall }) => {
+    return (
+      <TouchableOpacity
+        style={{
+          width: "46%",
+          alignItems: "center",
+          margin: "2%",
+          backgroundColor: "white",
+          elevation: 2,
+          borderRadius: 8,
+        }}
+        onPress={() => handleTouch(wall.urls.regular)}
+      >
+        <Image
+          style={{ width: "100%", height: 250, borderRadius: 8 }}
+          source={{ uri: wall.urls.regular }}
+          alt={"image"}
+        />
+      </TouchableOpacity>
+    );
+  };
+
   return (
-    <ScrollView>
-      <View style={{ flex: 1 }}>
-        {wall.length > 0 ? (
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-            }}
-          >
-            {wall.map((ele) => {
-              return (
-                <View
-                  style={{
-                    margin: 10,
-                    borderRadius: 8,
-                    backgroundColor: "white",
-                    elevation: 2,
-                    width:"44%",
-                    height:240,
-                    justifyContent:"center"
-                  }}
-                  key={ele.id}
-                >
-                  <TouchableOpacity
-                    onPress={() => handleTouch(ele.urls.regular)}
-                  >
-                    <Image
-                      style={{ width: "100%", height: "100%", borderRadius: 8 }}
-                      source={{ uri: ele.urls.regular }}
-                      alt={"image"}
-                    />
-                  </TouchableOpacity>
-                </View>
-              );
-            })}
-          </View>
-        ) : (
-          <View>
-            <Text>Loading...</Text>
-          </View>
-        )}
+    <SafeAreaView style={{flex:1}}>
+      <FlatList
+        numColumns={2}
+        data={wall}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => <WallView wall={item} />}
+      ></FlatList>
+      <View style={{width:"100%",height:48,backgroundColor:"white"}}>
+        <View style={{flex:1,justifyContent:"center",alignItems:"center",flexDirection:"row"}}>
+          <Button title="PREV"/>
+          <Button title="NEXT"/>
+        </View>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
