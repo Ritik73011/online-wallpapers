@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
   FlatList,
-  Text,
   Button,
 } from "react-native";
 import wallContext from "../context/wallpaper.context";
@@ -19,10 +18,10 @@ const Wallpapers = () => {
     navigation.navigate("image", { url: url });
   };
   const handlePrev = ()=>{
-    
+    setPage((prev)=>prev-1);
   }
   const handleNext = ()=>{
-
+    setPage((prev)=>prev+1);
   }
 
   const WallView = ({ wall }) => {
@@ -57,7 +56,7 @@ const Wallpapers = () => {
       ></FlatList>
       <View style={{width:"100%",height:48,backgroundColor:"white"}}>
         <View style={{flex:1,justifyContent:"center",alignItems:"center",flexDirection:"row"}}>
-          <Button onPress={handlePrev} title="PREV"/>
+          <Button disabled={page===1?true:false} onPress={handlePrev} title="PREV"/>
           <Button onPress={handleNext} title="NEXT"/>
         </View>
       </View>
